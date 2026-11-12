@@ -1,13 +1,17 @@
 import { createClient } from '@supabase/supabase-js'
 
 const url = import.meta.env.VITE_SUPABASE_URL?.trim()
-const key = import.meta.env.VITE_SUPABASE_ANON_KEY?.trim()
+const key = import.meta.env.VITE_SUPABASE_PUBLISHABLE_KEY?.trim()
+const hasPublicApiKey = Boolean(
+  key &&
+    (key.startsWith('sb_publishable_') ||
+      /^eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+$/.test(key)),
+)
 export const configured = Boolean(
   url &&
   /^https?:\/\//.test(url) &&
   !url.includes('YOUR_PROJECT') &&
-  key &&
-  !key.includes('YOUR_PUBLIC'),
+  hasPublicApiKey,
 )
 export const supabase = configured
   ? createClient(url!, key!, {
@@ -21,7 +25,10 @@ export const supabase = configured
   : null
 
 export function client() {
-  if (!supabase) throw new Error('Configura Supabase en el archivo .env para continuar.')
+  if (!supabase)
+    throw new Error(
+      'Configura VITE_SUPABASE_URL y VITE_SUPABASE_PUBLISHABLE_KEY en .env para continuar.',
+    )
   if (typeof navigator !== 'undefined' && !navigator.onLine)
     throw new Error('No tienes conexión. Conéctate antes de consultar o registrar cambios.')
   return supabase

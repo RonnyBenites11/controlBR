@@ -67,7 +67,7 @@ export function Setup() {
                 <code className="code-block">
                   VITE_SUPABASE_URL
                   <br />
-                  VITE_SUPABASE_ANON_KEY
+                  VITE_SUPABASE_PUBLISHABLE_KEY
                 </code>
               </div>
             </li>

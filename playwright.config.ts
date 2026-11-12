@@ -18,7 +18,7 @@ export default defineConfig({
     reuseExistingServer: false,
     env: {
       VITE_SUPABASE_URL: 'https://qa.supabase.co',
-      VITE_SUPABASE_ANON_KEY: 'qa-public-key-for-browser-tests-only',
+      VITE_SUPABASE_PUBLISHABLE_KEY: 'qa-public-key-for-browser-tests-only',
     },
   },
 })

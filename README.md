@@ -55,10 +55,10 @@ Edita `.env` con los valores de **Supabase → Project Settings → API** (o el 
 
 ```dotenv
 VITE_SUPABASE_URL=https://TU_PROYECTO.supabase.co
-VITE_SUPABASE_ANON_KEY=TU_CLAVE_PUBLICA_ANON_O_PUBLISHABLE
+VITE_SUPABASE_PUBLISHABLE_KEY=TU_CLAVE_SB_PUBLISHABLE
 ```
 
-Las variables `VITE_*` son públicas y se incorporan al build. La clave pública es segura únicamente con las migraciones y RLS correctamente aplicadas. **Nunca pegues una clave secreta o `service_role` aquí.**
+Las variables `VITE_*` son públicas y se incorporan al build. La clave debe tener el formato `sb_publishable_...` (o ser una clave JWT anon antigua). La clave publicable está protegida por las migraciones y RLS. **Nunca pegues una clave `sb_secret_` o `service_role` aquí.**
 
 ```powershell
 npm run dev
@@ -195,7 +195,7 @@ Auditoría: las dependencias de producción no presentan avisos conocidos en la 
 1. Crea un repositorio GitHub y sube este proyecto **sin `.env` ni secretos**. Esta entrega no crea un remoto ni hace push.
 2. En Cloudflare, abre **Workers & Pages → Create → Pages → Connect to Git** y selecciona el repositorio.
 3. Preset: Vite/React (o configuración manual). Comando de build: `npm run build`. Directorio de salida: `dist`. Raíz: la raíz del repositorio. Versión de Node: `22`.
-4. Configura `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` para producción y, si corresponde, preview. No reutilices la base de producción para pruebas de cambios destructivos.
+4. Configura `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` para producción y, si corresponde, preview. No reutilices la base de producción para pruebas de cambios destructivos.
 5. Publica. `public/_redirects` permite recargar rutas internas; `public/_headers` agrega CSP y cabeceras de seguridad. Con Supabase autoalojado/dominio propio, adapta `connect-src` e `img-src` a su origen.
 6. Configura Site URL y el redirect de recuperación en Supabase con el origen publicado.
 7. Comprueba login/logout, una venta real de prueba, comprobante, cierre, reportes, instalación PWA y recarga de `/inventario` antes de operar con el negocio.
