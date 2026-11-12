@@ -196,7 +196,7 @@ Auditoría: las dependencias de producción no presentan avisos conocidos en la 
 2. En Cloudflare, abre **Workers & Pages → Create → Pages → Connect to Git** y selecciona el repositorio.
 3. Preset: Vite/React (o configuración manual). Comando de build: `npm run build`. Directorio de salida: `dist`. Raíz: la raíz del repositorio. Versión de Node: `22`.
 4. Configura `VITE_SUPABASE_URL` y `VITE_SUPABASE_PUBLISHABLE_KEY` para producción y, si corresponde, preview. No reutilices la base de producción para pruebas de cambios destructivos.
-5. Publica. `public/_redirects` permite recargar rutas internas; `public/_headers` agrega CSP y cabeceras de seguridad. Con Supabase autoalojado/dominio propio, adapta `connect-src` e `img-src` a su origen.
+5. Publica. Cloudflare Pages sirve `index.html` para rutas desconocidas de esta SPA mientras no haya un `404.html`; no agregues una regla general `/* /index.html 200` en `_redirects`, porque puede causar un bucle de redirección. `public/_headers` agrega CSP y cabeceras de seguridad. Con Supabase autoalojado/dominio propio, adapta `connect-src` e `img-src` a su origen.
 6. Configura Site URL y el redirect de recuperación en Supabase con el origen publicado.
 7. Comprueba login/logout, una venta real de prueba, comprobante, cierre, reportes, instalación PWA y recarga de `/inventario` antes de operar con el negocio.
 
